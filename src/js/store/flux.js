@@ -13,9 +13,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
+			users:[],
 			mensaje: "hola"
 		},
 		actions: {
+			getUsers: async () => {
+				const url = "https://jsonplaceholder.typicode.com/users";
+				const options = {
+					method: "GET"
+				};
+				const response = await fetch(url,options)
+				if(!response.ok){
+
+					console.log("Error en el fetch",response.status,response.statusText)
+					return response.status
+				}
+				const data = response.json()
+				console.log(data)
+				setStore({users:data})
+			},
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
