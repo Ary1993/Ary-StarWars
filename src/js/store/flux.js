@@ -28,7 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error en el fetch",response.status,response.statusText)
 					return response.status
 				}
-				const data = response.json()
+				const data = await response.json()
 				console.log(data)
 				setStore({users:data})
 			},
