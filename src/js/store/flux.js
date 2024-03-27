@@ -13,10 +13,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
+			favorites:[],
 			users:[],
-			mensaje: "hola"
+			currentUser: null,
+			mensaje: "hola",
+			isLogin: false
 		},
 		actions: {
+			login: () => {
+				setStore({isLogin: true});
+				localStorage.setItem("isLogin", true)
+			},
+			logout: () => {setStore({isLogin: false})},
+			assignUser: (item) => { setStore({ currentUser: item }) },
+			//25.3 17.20
+			clearUser: () => { setStore({ currentUser: null }) },
+			//25.3 31.11
+			addFavorites: (newFavorite) => {
+				setStore({ favorites: [...getStore().favorites,newFavorite]})
+			},
+			//25.3 41.11 , 44.44
+			removeFavorites: (item, array) => {
+				setStore({ favorites: array.filter((element) => element != item) })
+			},
 			getUsers: async () => {
 				const url = "https://jsonplaceholder.typicode.com/users";
 				const options = {
@@ -31,6 +50,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await response.json()
 				console.log(data)
 				setStore({users:data})
+				localStorage.setItem("usuarios", JSON.stringify(data))
 			},
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
