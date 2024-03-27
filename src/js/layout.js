@@ -15,6 +15,8 @@ import { ContactDetails } from "./views/ContactDetails.jsx";
 
 import { Demo } from "./views/demo.js";
 import { ContactEdit } from "./views/ContactEdit.jsx";
+import { ContactList } from "./views/ContactList.jsx";
+import { CreateContact } from "./views/CreateContact.jsx";
 
 //create your first component
 const Layout = () => {
@@ -33,6 +35,8 @@ const Layout = () => {
 						<Route path="/contacts" element={<Contact/>}/>
 						<Route path="/contacts/:idContact" element={<ContactDetails/>}/>	
 						<Route path="/contacts-edit" element={<ContactEdit/>}/>
+						<Route path="/contact-list" element ={<ContactList/>}/>
+						<Route path="/create-contact" element={<CreateContact/>}/>
 						<Route path="/demo" element={<Demo/>} />
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="*" element={<h1>Not found!</h1>} />

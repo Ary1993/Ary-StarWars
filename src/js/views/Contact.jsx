@@ -26,7 +26,6 @@ export const Contact = () => {
     return (
         <div className="container text-center">
             <h1 className="text-sucess">Contactos</h1>
-            <h2 className="text-primary">{store.mensaje}</h2>
             <ul className="list-group">
                 {store.users.map((item) => 
                     <li key={item.id} className="list-group-item d-flex justify-content-between">
