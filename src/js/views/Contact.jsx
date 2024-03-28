@@ -37,9 +37,6 @@ export const Contact = () => {
                             <span onClick={() => {favoriteTask(item)}} className="mx-2 text-danger">
                             <i className="fas fa-heart text-warning"></i>    
                             </span>
-                            <span onClick={() => {editTask(item)}} className="mx-2">
-                            <i className="fas fa-edit"></i>    
-                            </span>
                             <span onClick={() => {deleteTask(item)}} className="mx-2 text-danger">
                             <i className="fas fa-trash"></i>    
                             </span>

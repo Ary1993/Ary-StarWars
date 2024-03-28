@@ -77,6 +77,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({contacts: data })
 				localStorage.setItem("contactList", JSON.stringify(data))
 			},
+			deleteContact: async (contact_id) => {
+				const response = await fetch(
+				  `https://playground.4geeks.com/apis/fake/contact/${contact_id}`,
+				  {
+					method: 'DELETE',
+				  }
+				);
+			
+				if (response.ok) {
+				  getActions().getContacts(); // Refresh the contact list after deletion
+				} else {
+				  console.error("There was an error deleting the contact.");
+				}
+			  },
+			  editContact: async (contact_id, updatedData) => {
+				const options = {
+				  method: 'PUT',
+				  body: JSON.stringify(updatedData),
+				  headers: {
+					'Content-type': 'application/json',
+				  },
+				};
+			  
+				try {
+				  const response = await fetch(`https://playground.4geeks.com/apis/fake/contact/${contact_id}`, options);
+			  
+				  if (!response.ok) {
+					throw new Error('Failed to update contact');
+				  }
+			  
+				  getActions().getContacts(); // Refresh the contact list after editing
+				} catch (error) {
+				  console.error("There was an error updating the contact:", error);
+				}
+			  },
+			
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
