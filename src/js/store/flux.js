@@ -19,7 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			mensaje: "hola",
 			isLogin: false,
 			//26 11.22
-			agenda: "agenda_mrosa",
+			agenda: "adnel_agenda",
 			contacts: null
 		},
 		actions: {
