@@ -15,23 +15,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 			favorites:[],
 			users:[],
-			currentUser: null,
-			mensaje: "hola",
-			isLogin: false,
-			//26 11.22
-			agenda: "adnel_agenda",
-			contacts: null
+			planets:[],
+			vehicles:[],
 		},
 		actions: {
-			login: () => {
-				setStore({isLogin: true});
-				localStorage.setItem("isLogin", true)
-			},
-			logout: () => {setStore({isLogin: false})},
-			assignUser: (item) => { setStore({ currentUser: item }) },
-			//25.3 17.20
-			clearUser: () => { setStore({ currentUser: null }) },
-			//25.3 31.11
 			addFavorites: (newFavorite) => {
 				setStore({ favorites: [...getStore().favorites,newFavorite]})
 			},
@@ -40,82 +27,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ favorites: array.filter((element) => element != item) })
 			},
 			getUsers: async () => {
-				const url = "https://jsonplaceholder.typicode.com/users";
-				const options = {
-					method: "GET"
-				};
-				const response = await fetch(url,options)
-				if(!response.ok){
-
-					console.log("Error en el fetch",response.status,response.statusText)
+				const response = await fetch(`https://swapi.dev/api/people`)
+				if (!response.ok) {
+					console.log("Error en el fetch", response.status, response.statusText)
 					return response.status
-				}
-				const data = await response.json()
-				console.log(data)
-				setStore({users:data})
-				localStorage.setItem("usuarios", JSON.stringify(data))
-			},
-			//26 8.50
-			addContact : async (dataToSend) => {
-				const options = {
-					method: 'POST',
-					body: JSON.stringify(dataToSend),
-					headers: {'Content-type': 'application/json' }
-				}
-				
-				const response = await fetch("https://playground.4geeks.com/apis/fake/contact/", options)
-				if (!response.ok) return
-				const data = await response.json();
-				//26 57.15 
-				getActions().getContacts();
-			},
-			//26 20.44
-			getContacts : async () => {
-				const response = await fetch("https://playground.4geeks.com/apis/fake/contact/agenda/" + getStore().agenda)
-				if (!response.ok) return
-				const data = await response.json();
-				setStore({contacts: data })
-				localStorage.setItem("contactList", JSON.stringify(data))
-			},
-			deleteContact: async (contact_id) => {
-				const response = await fetch(
-				  `https://playground.4geeks.com/apis/fake/contact/${contact_id}`,
-				  {
-					method: 'DELETE',
 				  }
-				);
-			
-				if (response.ok) {
-				  getActions().getContacts(); // Refresh the contact list after deletion
-				} else {
-				  console.error("There was an error deleting the contact.");
-				}
-			  },
-			  editContact: async (contact_id, updatedData) => {
-				const options = {
-				  method: 'PUT',
-				  body: JSON.stringify(updatedData),
-				  headers: {
-					'Content-type': 'application/json',
-				  },
-				};
-			  
-				try {
-				  const response = await fetch(`https://playground.4geeks.com/apis/fake/contact/${contact_id}`, options);
-			  
-				  if (!response.ok) {
-					throw new Error('Failed to update contact');
+				  const data = await response.json()
+				  setStore({ users: data.results })
+			},
+			getPlanets: async () => {
+				const response = await fetch(`https://swapi.dev/api/planets`)
+				if (!response.ok) {
+					console.log("Error en el fetch", response.status, response.statusText)
+					return response.status
 				  }
-			  
-				  getActions().getContacts(); // Refresh the contact list after editing
-				} catch (error) {
-				  console.error("There was an error updating the contact:", error);
-				}
-			  },
-			
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+				  const data = await response.json()
+				  setStore({ planets: data.results })
+			},
+			getVehicles: async () => {
+				const response = await fetch(`https://swapi.dev/api/vehicles`)
+				if (!response.ok) {
+					console.log("Error en el fetch", response.status, response.statusText)
+					return response.status
+				  }
+				  const data = await response.json()
+				  setStore({ vehicles: data.results })
 			},
 			loadSomeData: () => {
 				/**

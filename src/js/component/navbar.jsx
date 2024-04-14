@@ -9,17 +9,17 @@ export const Navbar = () => {
 	return (
 		<nav className="navbar navbar-light bg-light p-4">
 			<Link to="/">
-				<span className="navbar-brand mb-0 h1">{store.mensaje}</span>
+				<span className="navbar-brand mb-0 h1">StarWars</span>
 			</Link>
 			<div className="ml-auto">
-				<Link to="/create-contact">
-					<button className="btn btn-primary me-3">Create Contact</button>
-				</Link>
-				<Link to="/contact-list">
-					<button className="btn btn-primary me-3">Contact List</button>
-				</Link>
 				<Link to="/contacts">
-					<button className="btn btn-primary me-3">Contacts</button>
+					<button className="btn btn-primary me-3">Characters</button>
+				</Link>
+				<Link to="/planets">
+					<button className="btn btn-primary me-3">Planets</button>
+				</Link>
+				<Link to="/vehicles">
+					<button className="btn btn-primary me-3">Vehicles</button>
 				</Link>
 			</div>
 			<BtnFavorites />
